@@ -2,8 +2,12 @@
 
 A collection of tools for working with the uvicorn messaging interface.
 
+Documentation: http://www.uvicorn.org/
+
+Currently includes:
+
 * Broadcast middleware. (Implemented with redis pub/sub)
-* WSGI->ASGI and ASGI-> WSGI adapters.
+* WSGI->ASGI and ASGI->WSGI adapters.
 
 Things to be added:
 
