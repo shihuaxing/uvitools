@@ -40,8 +40,9 @@ setup(
     author_email='tom@tomchristie.com',
     packages=get_packages('uvitools'),
     install_requires=[
+        'asyncio_redis',
         'uvicorn',
-        'asyncio_redis'
+        'werkzeug',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
