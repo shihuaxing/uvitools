@@ -1,3 +1,6 @@
+.coverage
+.cache/
 __pycache__/
+htmlcov/
 uvitools.egg-info/
 venv/

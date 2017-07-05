@@ -1,0 +1,5 @@
+uvicorn
+asyncio-redis
+
+pytest
+pytest-cov
