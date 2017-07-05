@@ -6,9 +6,9 @@ def message_to_environ(message):
         'REQUEST_METHOD': message['method'],
         'SCRIPT_NAME': message.get('root_path', ''),
         'PATH_INFO': message['path'],
-        'QUERY_STRING': message.get('query_string', 'http').decode('latin-1'),
+        'QUERY_STRING': message['query_string'].decode('latin-1'),
         'SERVER_PROTOCOL': 'http/%s' % message['http_version'],
-        'wsgi.url_scheme': message['scheme'],
+        'wsgi.url_scheme': message.get('scheme', 'http'),
     }
 
     if message.get('client'):
