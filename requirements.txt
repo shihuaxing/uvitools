@@ -1,5 +1,6 @@
-uvicorn
 asyncio-redis
+uvicorn
+werkzeug
 
 pytest
 pytest-cov
