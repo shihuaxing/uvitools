@@ -1,6 +1,7 @@
-from uvitools.routing import Router, Route
+from uvitools.routing import ChannelSwitch, Router, Route
 import asyncio
 import json
+import pytest
 
 
 def run_task(task):
@@ -107,3 +108,47 @@ def test_method_not_allowed():
         ],
         'content': b'Method Not Allowed'
     }
+
+
+async def http_routes(message, channels):
+    await channels['reply'].send('http')
+
+
+async def websocket_routes(message, channels):
+    await channels['reply'].send('websocket')
+
+
+async def wildcard_routes(message, channels):
+    await channels['reply'].send('wildcard')
+
+
+switched = ChannelSwitch({
+    'http.request': http_routes,
+    'websocket.*': websocket_routes,
+    '*': wildcard_routes
+})
+
+
+def test_channel_switcher():
+    message, channels = {'channel': 'http.request'}, {'reply': MockReplyChannel()}
+    run_task(switched(message, channels))
+    assert channels['reply'].message == 'http'
+
+    message, channels = {'channel': 'websocket.connect'}, {'reply': MockReplyChannel()}
+    run_task(switched(message, channels))
+    assert channels['reply'].message == 'websocket'
+
+    message, channels = {'channel': 'unknown'}, {'reply': MockReplyChannel()}
+    run_task(switched(message, channels))
+    assert channels['reply'].message == 'wildcard'
+
+
+def test_unknown_channel_switch():
+    switched = ChannelSwitch({
+        'http.request': http_routes,
+        'websocket.*': websocket_routes
+    })
+
+    message, channels = {'channel': 'unknown'}, {'reply': MockReplyChannel()}
+    with pytest.raises(Exception):
+        run_task(switched(message, channels))

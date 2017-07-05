@@ -78,7 +78,7 @@ class ChannelSwitch(object):
         try:
             app = self.literal_mappings[channel]
         except KeyError:
-            for name, app in self.wildcard_mappings.items():
+            for name, app in self.wildcard_mappings:
                 if channel.startswith(name):
                     break
             else:

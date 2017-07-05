@@ -6,12 +6,12 @@ Documentation: http://www.uvicorn.org/
 
 Currently includes:
 
+* Routing.
 * Broadcast middleware. (Implemented with redis pub/sub)
 * WSGI->ASGI and ASGI->WSGI adapters.
 
 Things to be added:
 
-* Routing.
 * Debug middleware.
 * Static files middleware.
 * Postgres LISTEN/NOTIFY based broadcast middleware.
