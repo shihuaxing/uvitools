@@ -9,7 +9,7 @@ from werkzeug.routing import Rule, Map
 class Route(object):
     def __init__(self, path: str, app: Callable, methods: List[str]=None, name: str=None):
         if name is None:
-            name = app.__name__
+            name = 'id<%d>' % id(app)
         self.path, self.app, self.methods, self.name = (path, app, methods, name)
 
 
